@@ -1,0 +1,3 @@
+C:/Users/esguevaj/OneDrive - Wentworth Institute of Technology/4Senior/1OperantingSystems/labs/lab2/cmake-build-debug/CMakeFiles/lab2.dir
+C:/Users/esguevaj/OneDrive - Wentworth Institute of Technology/4Senior/1OperantingSystems/labs/lab2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/esguevaj/OneDrive - Wentworth Institute of Technology/4Senior/1OperantingSystems/labs/lab2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

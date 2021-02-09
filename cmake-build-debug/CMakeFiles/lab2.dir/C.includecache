@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/esguevaj/OneDrive - Wentworth Institute of Technology/4Senior/1OperantingSystems/labs/lab2/parser.c
+stdio.h
+-
+string.h
+-
+stdlib.h
+-
+
