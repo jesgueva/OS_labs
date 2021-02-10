@@ -1,9 +1,8 @@
-P1 Ready P3 Running P5 Ready P7 Ready P8 Ready end
-P3 requests P7 dispatched 
-P7 expires P8 dispatched 
-P8 requests P5 dispatched 
-P5 requests P7 dispatched 
-P7 requests P1 dispatched 
+P1P3 requests 
+P7 expires 
+P8 requests 
+P5 requests 
+P7 requests 
 P7 out 
 P5 interrupt 
 P3 interrupt 
