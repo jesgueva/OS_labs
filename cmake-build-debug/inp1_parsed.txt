@@ -1,12 +1,86 @@
-P1P3 requests 
-P7 expires 
-P8 requests 
-P5 requests 
-P7 requests 
-P7 out 
-P5 interrupt 
-P3 interrupt 
-P1 terminated 
-P7 interrupt 
-P7 in 
-P8 interrupt 
+P1 Ready P3 Running P5 Ready P7 Ready P8 Ready end
+
+At time 5:  P3 requests the disk; P7 is dispatched. 
+
+P1 Ready P3 Blocked* P5 Ready P7 Running* P8 Ready 
+Disk Queue: P3  
+Printer Queue:  
+Keyboard Queue:  
+
+At time 15: Time slice for P7 expires; P8 is dispatched. 
+
+P1 Ready P3 Blocked P5 Ready P7 Ready* P8 Running* 
+Disk Queue: P3  
+Printer Queue:  
+Keyboard Queue:  
+
+At time 18: P8 requests the keyboard; P5 is dispatched. 
+
+P1 Ready P3 Blocked P5 Running* P7 Ready P8 Blocked* 
+Disk Queue: P3  
+Printer Queue:  
+Keyboard Queue: P8  
+
+At time 20: P5 requests the disk; P7 is dispatched. 
+
+P1 Ready P3 Blocked P5 Blocked* P7 Running* P8 Blocked 
+Disk Queue: P3 P5  
+Printer Queue:  
+Keyboard Queue: P8  
+
+At time 24: P7 requests the printer; P1 is dispatched. 
+
+P1 Running* P3 Blocked P5 Blocked P7 Blocked* P8 Blocked 
+Disk Queue: P3 P5  
+Printer Queue: P7  
+Keyboard Queue: P8  
+
+At time 28: P7 is swapped out. 
+
+P1 Running P3 Blocked P5 Blocked P7 Blocked/Suspended* P8 Blocked 
+Disk Queue: P3 P5  
+Printer Queue: P7  
+Keyboard Queue: P8  
+
+At time 33: An interrupt occurred for P5. 
+
+P1 Running P3 Blocked P5 Ready* P7 Blocked/Suspended P8 Blocked 
+Disk Queue: P3  
+Printer Queue: P7  
+Keyboard Queue: P8  
+
+At time 36: An interrupt occurred for P3. 
+
+P1 Running P3 Ready* P5 Ready P7 Blocked/Suspended P8 Blocked 
+Disk Queue:  
+Printer Queue: P7  
+Keyboard Queue: P8  
+
+At time 38: P1 is terminated. 
+
+P1 Exit* P3 Ready P5 Ready P7 Blocked/Suspended P8 Blocked 
+Disk Queue:  
+Printer Queue: P7  
+Keyboard Queue: P8  
+
+At time 40: An interrupt occurred for P7. 
+
+P1 Exit P3 Ready P5 Ready P7 Ready/Suspended* P8 Blocked 
+Disk Queue:  
+Printer Queue:  
+Keyboard Queue: P8  
+
+At time 44: P7 is swapped in. 
+
+P1 Exit P3 Ready P5 Ready P7 Ready* P8 Blocked 
+Disk Queue:  
+Printer Queue:  
+Keyboard Queue: P8  
+
+At time 48: An interrupt occurred for P8. 
+
+P1 Exit P3 Ready P5 Ready P7 Ready P8 Ready* 
+Disk Queue:  
+Printer Queue:  
+Keyboard Queue:  
+

@@ -44,8 +44,8 @@ int main()
 
     FILE* fp1;
     FILE* fp2;
-    fp1 = fopen("inp1.txt", "r");			//open the original input file
-    fp2 = fopen("inp1_parsed.txt", "w");	//output the Process ID and event to another file.
+    fp1 = fopen("inp2.txt", "r");			//open the original input file
+    fp2 = fopen("inp2_parsed.txt", "w");	//output the Process ID and event to another file.
     //You can store in variables instead of printing to file
 
     lineP = 0;
@@ -57,7 +57,7 @@ int main()
     if (fgets(str, sizeof(str), fp1) != NULL){
         int index = 0;
         int isProcess = 1;
-
+        fprintf(fp2, "%s\n", str);
         token = strtok(str, " ");
 
         while( strcmp(token, "end\n")) {
@@ -92,7 +92,7 @@ int main()
             token = strtok(NULL, " ");
         }
 
-        fprintf(fp2, "%s", str);
+
     }
 
 
@@ -100,7 +100,7 @@ int main()
     //while loop with fgets reads each line
     while (fgets(str, sizeof(str), fp1) != NULL)
     {
-        printf("%s\n", str);
+        fprintf(fp2,"%s\n", str);
         lineP = 0;
         rch = strtok(str, ":;.");					// use strtok to break up the line by : or . or ; This would separate each line into the different events
         while (rch != NULL)
@@ -126,7 +126,6 @@ int main()
             //tokenizedLine has the event separated by spaces (e.g. Time slice for P7 expires)
             if (strcmp(tokenizedLine[1], "requests") == 0)						//Process requests an I/O device
             {
-                //TODO add to different queue based on IO
                 //update the status of the process to blocked
                 for(int i=0;i<SIZE;i++){
                     if(strcmp(tokenizedLine[0], processArr[i]->id) == 0){
@@ -146,8 +145,6 @@ int main()
                         }
                     }
                 }
-                fprintf(fp2, "%s %s ", tokenizedLine[0], tokenizedLine[1]);
-                //fprintf(fp2, "%s %s %s ", tokenizedLine[0], tokenizedLine[1], tokenizedLine[3]);
             }
             else if ((strcmp(tokenizedLine[2], "dispatched") == 0))				//Process is dispatched
             {
@@ -158,8 +155,6 @@ int main()
                         break;
                     }
                 }
-                //Update process to running
-//                fprintf(fp2, "%s %s ", tokenizedLine[0], tokenizedLine[2]);
             }
             else if (strcmp(tokenizedLine[0], "Time") == 0)						//Process has timed off
             {
@@ -171,7 +166,6 @@ int main()
                         break;
                     }
                 }
-                fprintf(fp2, "%s %s ", tokenizedLine[3], tokenizedLine[4]);
             }
             else if (strcmp(tokenizedLine[3], "out") == 0)						//Process is swapped out
             {
@@ -188,7 +182,7 @@ int main()
                         break;
                     }
                 }
-                fprintf(fp2, "%s %s ", tokenizedLine[0], tokenizedLine[3]);
+
             }
             else if (strcmp(tokenizedLine[3], "in") == 0)						//Process is swapped in
             {
@@ -206,7 +200,6 @@ int main()
                         break;
                     }
                 }
-                fprintf(fp2, "%s %s ", tokenizedLine[0], tokenizedLine[3]);
             }
             else if (strcmp(tokenizedLine[1], "interrupt") == 0)				//An interrupt has occured
             {   //check if state is blocked/sus or blocked
@@ -232,7 +225,6 @@ int main()
                         break;
                     }
                 }
-                fprintf(fp2, "%s %s ", tokenizedLine[4], tokenizedLine[1]);
             }
             else																//Process has been terminated
             {   // turn processes to exit
@@ -245,11 +237,9 @@ int main()
                         break;
                     }
                 }
-                fprintf(fp2, "%s %s ", tokenizedLine[0], tokenizedLine[2]);
             }
 
         }
-        fprintf(fp2, "\n");
         int j = 0;
         while(processArr[j] != NULL) {
             char status[10];
@@ -280,33 +270,33 @@ int main()
                     break;
             }
 
-            printf("%s %s", processArr[j]->id, status);
+            fprintf(fp2,"%s %s", processArr[j]->id, status);
             if(processArr[j]->isChanged)
-                printf("*");
+                fprintf(fp2,"*");
                 processArr[j]->isChanged = 0;
-                printf(" ");
+                fprintf(fp2," ");
             j++;
         }
 
-        printf("\nDisk Queue: ");
+        fprintf(fp2,"\nDisk Queue: ");
         for(int z = 0; z < SIZE; z++) {
             if (diskQueue[z].status != None) {
-                printf("%s ", diskQueue[z].id);
+                fprintf(fp2,"%s ", diskQueue[z].id);
             }
         }
-        printf("\nPrinter Queue: ");
+        fprintf(fp2,"\nPrinter Queue: ");
         for(int i = 0; i < SIZE;i++){
             if (printerQueue[i].status != None) {
-                printf("%s ", printerQueue[i].id);
+                fprintf(fp2,"%s ", printerQueue[i].id);
             }
         }
-        printf("\nKeyboard Queue: ");
+        fprintf(fp2,"\nKeyboard Queue: ");
         for(int z = 0; z < SIZE; z++) {
             if (keyboardQueue[z].status != None) {
-                printf("%s ", keyboardQueue[z].id);
+                fprintf(fp2,"%s ", keyboardQueue[z].id);
             }
         }
-        printf("\n\n");
+        fprintf(fp2,"\n\n");
     }
 
 
