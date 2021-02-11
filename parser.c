@@ -13,7 +13,8 @@ enum status {
     Blocked,
     ReadySuspended,
     BlockedSuspended,
-    Exit
+    Exit,
+    New
 };
 
 struct process {
@@ -83,6 +84,8 @@ int main()
                     processArr[index]->status = ReadySuspended;
                 else if (!strcmp(token, "Blocked/Suspended"))
                     processArr[index]->status = BlockedSuspended;
+                else if (!strcmp(token, "New"))
+                    processArr[index]->status = New;
                 else
                     return -1;
                 isProcess = 1;
@@ -267,6 +270,9 @@ int main()
                     break;
                 case 6:
                     strcpy(status, "Exit");
+                    break;
+                case 7:
+                    strcpy(status, "New");
                     break;
             }
 
